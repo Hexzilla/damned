@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 export interface Settings {
-  logoOpacity: string;
+  logoOpacity: number;
   leavesScale: number;
   overlayOpacity: number;
   lineTranslate: number;
@@ -19,7 +19,7 @@ const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
 
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.style.opacity = settings.logoOpacity;
+      containerRef.current.style.opacity = "" + settings.logoOpacity;
     }
     if (bannerRef.current) {
       bannerRef.current.style.transform = `scale(${
@@ -55,8 +55,31 @@ const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
   );
 };
 
-const settings = {
-  logoOpacity: "1",
+function getWindowSize() {
+  return {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+}
+
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  useEffect(() => {
+    const handleResizeEvent = () => {
+      setWindowSize(getWindowSize());
+    };
+    window.addEventListener("resize", handleResizeEvent);
+    return () => {
+      return window.removeEventListener("resize", handleResizeEvent);
+    };
+  }, []);
+
+  return windowSize;
+};
+
+const defaultSettings = {
+  logoOpacity: 1,
   leavesScale: 1,
   overlayOpacity: -1,
   lineTranslate: 0,
@@ -64,6 +87,32 @@ const settings = {
 } as Settings;
 
 function App() {
+  const [scrollY, setScrollY] = useState<number>(0);
+  const [settings, setSettings] = useState<Settings>(defaultSettings);
+  const { height } = useWindowSize();
+
+  const handleScrollEvent = () => {
+    setScrollY(Math.max(window.scrollY, 0));
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollEvent);
+    return () => {
+      window.removeEventListener("scroll", handleScrollEvent);
+    };
+  }, []);
+
+  useEffect(() => {
+    const halfHeight = height / 1.5;
+    setSettings({
+      logoOpacity: Math.max(1 - scrollY / halfHeight, 0),
+      leavesScale: Math.min(scrollY / halfHeight + 1, 1.75),
+      overlayOpacity: Math.min((scrollY - halfHeight) / halfHeight, 1),
+      lineHeight: Math.max(Math.min((scrollY - halfHeight) / halfHeight, 1), 0),
+      lineTranslate: Math.max(scrollY - 1.5 * height, 0),
+    });
+  }, [scrollY, height]);
+
   return (
     <div>
       <div className="dik-banner-2d">
@@ -73,7 +122,9 @@ function App() {
           style={{ opacity: settings.overlayOpacity }}
         />
         <div
-          className="scroll-line "
+          className={
+            "scroll-line " + (settings.lineTranslate > 0 ? "active" : "")
+          }
           style={{
             transform: `translate3d(-50%, ${-settings.lineTranslate}px, 0)`,
             height: `${200 * settings.lineHeight}px`,
