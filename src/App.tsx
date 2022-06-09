@@ -14,13 +14,13 @@ export interface MainSceneProp {
 }
 
 const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
   const bannerRef = useRef<HTMLImageElement>(null); //t
   const leaveRef = useRef<HTMLImageElement>(null); //d
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.style.opacity = "" + settings.logoOpacity;
+    if (logoRef.current) {
+      logoRef.current.style.opacity = "" + settings.logoOpacity;
     }
     if (bannerRef.current) {
       bannerRef.current.style.transform = `scale(${
@@ -34,11 +34,12 @@ const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
   }, [settings]);
 
   return (
-    <div className="banner-container" ref={containerRef}>
+    <div className="banner-container">
       <img
         id="logo"
         src="/images/branding/dik-dik-logo-optimized.webp"
         alt="Logo"
+        ref={logoRef}
       />
       <img
         id="habitat"
@@ -56,14 +57,14 @@ const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
   );
 };
 
-function getWindowSize() {
+function getWindowSize() { //G
   return {
     width: window.innerWidth,
     height: window.innerHeight,
   };
 }
 
-const useWindowSize = () => {
+const useWindowSize = () => { //S
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
@@ -88,12 +89,12 @@ const defaultSettings = {
 } as Settings;
 
 function App() {
-  const [scrollY, setScrollY] = useState<number>(0);
+  const [scroll, setScroll] = useState<number>(0);
   const [settings, setSettings] = useState<Settings>(defaultSettings);
   const { height } = useWindowSize();
 
   const handleScrollEvent = () => {
-    setScrollY(Math.max(window.scrollY, 0));
+    setScroll(Math.max(window.scrollY, 0));
   };
 
   useEffect(() => {
@@ -104,15 +105,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const halfHeight = height / 1.5;
+    const h = height / 1.5;
     setSettings({
-      logoOpacity: Math.max(1 - scrollY / halfHeight, 0),
-      leavesScale: Math.min(scrollY / halfHeight + 1, 1.75),
-      overlayOpacity: Math.min((scrollY - halfHeight) / halfHeight, 1),
-      lineHeight: Math.max(Math.min((scrollY - halfHeight) / halfHeight, 1), 0),
-      lineTranslate: Math.max(scrollY - 1.5 * height, 0),
+      logoOpacity: Math.max(1 - scroll / h, 0),
+      leavesScale: Math.min(scroll / h + 1, 1.75),
+      overlayOpacity: Math.min((scroll - h) / h, 1),
+      lineHeight: Math.max(Math.min((scroll - h) / h, 1), 0),
+      lineTranslate: Math.max(scroll - 1.5 * height, 0),
     });
-  }, [scrollY, height]);
+  }, [scroll, height]);
 
   return (
     <div>
@@ -132,6 +133,7 @@ function App() {
           }}
         />
       </div>
+      <div style={{minHeight: '1000px'}}>Hello World</div>
     </div>
   );
 }
