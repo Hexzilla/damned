@@ -1,24 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="dik-banner-2d">
+        <div className="banner-container">
+          <img id="logo" src="/images/branding/dik-dik-logo-optimized.webp" alt="Logo" />
+          <img id="habitat" src="/images/branding/habitat-static.webp" alt="Banner" data-xblocker="passed" />
+          <img id="leaves-entrance" src="/images/branding/leaves-entrance-cropped.png" alt="Leaves Entrance" data-xblocker="passed" />
+        </div>
+        <div className="banner-overlay"></div>
+        <div className="scroll-line "></div></div>
     </div>
   );
 }

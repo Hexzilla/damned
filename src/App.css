@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+.dik-banner-2d {
+  position: -webkit-sticky;
+  position: sticky;
+  min-height: 250vh;
+  top: 0;
+  max-width: 100%;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div.dik-banner-2d .banner-container {
+  position: absolute;
+  background: #74548f;
+  height: 100vh;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+div.dik-banner-2d .banner-container img#logo {
+  position: absolute;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-animation: flicker 1.5s infinite alternate;
+  animation: flicker 1.5s infinite alternate;
+  transition: all 1s ease-out;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+div.dik-banner-2d .banner-container img#habitat {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: all 1s ease-in-out;
 }
 
-.App-link {
-  color: #61dafb;
+div.dik-banner-2d .banner-container img#leaves-entrance {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  -webkit-filter: contrast(1.1);
+  filter: contrast(1.1);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: all 1s ease-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+div.dik-banner-2d .banner-overlay {
+  position: absolute;
+  background: #040204;
+  height: 100vh;
+  width: 100%;
+  opacity: 0;
+  transition: all .25s ease-out;
+}
+
+div.dik-banner-2d .scroll-line {
+  position: absolute;
+  top: calc(90vh - 200px);
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: #fff;
+  height: 0;
+  width: 2px;
+  transition: opacity .25s ease-in-out;
+  transition: all .25s ease-out;
 }
