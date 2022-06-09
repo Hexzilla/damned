@@ -16,6 +16,7 @@ export interface MainSceneProp {
 const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bannerRef = useRef<HTMLImageElement>(null); //t
+  const leaveRef = useRef<HTMLImageElement>(null); //d
 
   useEffect(() => {
     if (containerRef.current) {
@@ -26,10 +27,10 @@ const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
         1 + (settings.leavesScale - 1) / 4
       })`;
     }
-    /*if (d.current) {
+    if (leaveRef.current) {
       const translate = -(100 * settings.leavesScale - 100);
-      d.current.style.transform = `scale(${settings.leavesScale}) translate3d(0, ${translate}px, 0)`;
-    }*/
+      leaveRef.current.style.transform = `scale(${settings.leavesScale}) translate3d(0, ${translate}px, 0)`;
+    }
   }, [settings]);
 
   return (
@@ -49,7 +50,7 @@ const MainScene: React.FC<MainSceneProp> = ({ settings }: MainSceneProp) => {
         id="leaves-entrance"
         src="/images/branding/leaves-entrance-cropped.png"
         alt="Leaves Entrance"
-        data-xblocker="passed"
+        ref={leaveRef}
       />
     </div>
   );
