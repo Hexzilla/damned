@@ -1,0 +1,70 @@
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+#dik-nav {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  transition: all .25s ease-in-out;
+  z-index: 1000;
+  position: fixed;
+
+  .main-menu {
+    width: 100%;
+    height: 90px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+
+    .menu-container {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 1rem;
+      width: 100%;
+
+      .nav-link {
+        padding: 0;
+        margin: 10px;
+        font-family: montserrat,sans-serif;
+        color: #fff;
+        letter-spacing: 1px;
+        font-size: 1rem;
+        cursor: pointer;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 600;
+        text-shadow: 0 0 2px #000;
+      }
+    }
+  }
+}
+
+nav#dik-nav #header-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-transform: translateX(-50%) translateY(8px);
+  transform: translateX(-50%) translateY(8px);
+  transition: all .33s ease-in-out;
+  -webkit-animation: blink 3s ease-in-out infinite;
+  animation: blink 3s ease-in-out infinite;
+  -webkit-filter: drop-shadow(0 0 2px #000);
+  filter: drop-shadow(0 0 2px black);
+}

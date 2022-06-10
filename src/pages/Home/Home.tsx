@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import "./Home.scss";
 import MainScene from "./MainScene";
+import Menu from "./Menu";
 import { Settings } from "./types";
 
 const defaultSettings = {
@@ -41,23 +42,26 @@ function Home() {
 
   return (
     <div>
-      <div className="dik-banner-2d">
-        <MainScene settings={settings} />
-        <div
-          className="banner-overlay"
-          style={{ opacity: settings.overlayOpacity }}
-        />
-        <div
-          className={
-            "scroll-line " + (settings.lineTranslate > 0 ? "active" : "")
-          }
-          style={{
-            transform: `translate3d(-50%, ${-settings.lineTranslate}px, 0)`,
-            height: `${200 * settings.lineHeight}px`,
-          }}
-        />
+      <Menu />
+      <div>
+        <div className="dik-banner-2d">
+          <MainScene settings={settings} />
+          <div
+            className="banner-overlay"
+            style={{ opacity: settings.overlayOpacity }}
+          />
+          <div
+            className={
+              "scroll-line " + (settings.lineTranslate > 0 ? "active" : "")
+            }
+            style={{
+              transform: `translate3d(-50%, ${-settings.lineTranslate}px, 0)`,
+              height: `${200 * settings.lineHeight}px`,
+            }}
+          />
+        </div>
+        <div style={{minHeight: '1000px'}}>Hello World</div>
       </div>
-      <div style={{minHeight: '1000px'}}>Hello World</div>
     </div>
   );
 }
